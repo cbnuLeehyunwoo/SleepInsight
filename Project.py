@@ -90,3 +90,30 @@ axes[1, 2].axis('off')
 
 plt.tight_layout()
 plt.show()
+
+# 3. 가격과 다른 항목(램, 배터리, 무게, 저장공간) 사이의 관계 회귀선 포함 산점도
+fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+
+# 회귀선이 포함된 산점도
+sns.regplot(x='ram', y='price_usd', data=subset, scatter_kws={'s': 10}, line_kws={'color': 'red'}, ax=axes[0, 0])
+axes[0, 0].set_title('가격과 RAM의 관계', fontproperties=font_prop)
+axes[0, 0].set_xlabel('RAM (GB)', fontproperties=font_prop)
+axes[0, 0].set_ylabel('가격 (USD)', fontproperties=font_prop)
+
+sns.regplot(x='battery', y='price_usd', data=subset, scatter_kws={'s': 10}, line_kws={'color': 'red'}, ax=axes[0, 1])
+axes[0, 1].set_title('가격과 배터리의 관계', fontproperties=font_prop)
+axes[0, 1].set_xlabel('배터리 (mAh)', fontproperties=font_prop)
+axes[0, 1].set_ylabel('가격 (USD)', fontproperties=font_prop)
+
+sns.regplot(x='weight', y='price_usd', data=subset, scatter_kws={'s': 10}, line_kws={'color': 'red'}, ax=axes[1, 0])
+axes[1, 0].set_title('가격과 무게의 관계', fontproperties=font_prop)
+axes[1, 0].set_xlabel('무게 (그램)', fontproperties=font_prop)
+axes[1, 0].set_ylabel('가격 (USD)', fontproperties=font_prop)
+
+sns.regplot(x='storage', y='price_usd', data=subset, scatter_kws={'s': 10}, line_kws={'color': 'red'}, ax=axes[1, 1])
+axes[1, 1].set_title('가격과 저장공간의 관계', fontproperties=font_prop)
+axes[1, 1].set_xlabel('저장공간 (GB)', fontproperties=font_prop)
+axes[1, 1].set_ylabel('가격 (USD)', fontproperties=font_prop)
+
+plt.tight_layout()
+plt.show()
