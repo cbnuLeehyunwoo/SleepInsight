@@ -28,15 +28,36 @@ data['os_group'] = data['os'].apply(lambda x: 'Android' if 'android' in x else (
 pattern = r"(\d+\.\d+) GHz" 
 
 def calculate_cpu_speed(cpu_description):
-    speeds = re.findall(pattern, cpu_description)  # 정규 표현식으로 GHz 값 추출
     total_speed = 0
-    for speed in speeds:
-        speed_value = float(speed)  # GHz 값을 float로 변환
-        total_speed += speed_value  # 각 GHz 값들을 더함
     
-    return total_speed  # 평균이 아닌 총합을 반환
-
-
+    # 'x'와 '&'를 모두 처리할 수 있도록 정규 표현식 수정
+    # "x"가 포함된 형식 (예: "2x2.0 GHz" 또는 "1x3.00 GHz")
+    cores_and_speeds = re.findall(r"(\d+)x(\d+\.\d+) GHz", cpu_description)
+    for core_count, speed in cores_and_speeds:
+        core_count = int(core_count)  # 코어 수 (정수로 변환)
+        speed_value = float(speed)    # GHz 값 (실수로 변환)
+        total_speed += core_count * speed_value  # 코어 수 * 속도 값 추가
+    
+    # '&'를 기준으로 각 속도 항목 처리 (예: "2x2.0 GHz" & "6x1.8 GHz")
+    part_speeds = re.split(r'&', cpu_description)  # &로 분리하여 각 항목 처리
+    for part in part_speeds:
+        # 'x'가 포함된 경우를 처리 (예: "2x2.0 GHz")
+        cores_and_speeds = re.findall(r"(\d+)x(\d+\.\d+) GHz", part)
+        for core_count, speed in cores_and_speeds:
+            core_count = int(core_count)
+            speed_value = float(speed)
+            total_speed += core_count * speed_value
+        
+        # 'x'가 없는 경우 (예: "2.0 GHz")
+        speeds = re.findall(r"(\d+\.?\d*) GHz", part)
+        for speed in speeds:
+            total_speed += float(speed)
+    
+    # 만약 계산된 속도가 0이라면, NaN으로 반환
+    if total_speed == 0:
+        return np.nan
+    
+    return total_speed
 # CPU 칼럼을 숫자 형태로 변환
 data['cpu_speed'] = data['cpu'].apply(calculate_cpu_speed)
 
@@ -142,3 +163,51 @@ axes[1].legend(title="year", prop=font_prop)
 
 plt.tight_layout()
 plt.show()
+
+# OS별 데이터 집계
+
+os_summary = subset.groupby('os_group').agg(
+    avg_ram=('ram', np.mean),          # 평균 RAM
+    avg_storage=('storage', np.mean),   # 평균 저장공간
+    count=('os_group', 'size'),         # 각 OS의 개수
+    avg_price=('price_usd', np.mean),   # 평균 가격
+    price_std=('price_usd', np.std),    # 가격의 표준편차
+    avg_cpu=('cpu_speed', np.mean)      # 평균 CPU 속도
+).reset_index()
+
+# 시각화 - OS별 평균 RAM, 저장공간, 가격의 표준편차, OS 개수, CPU 속도
+fig, axes = plt.subplots(2, 3, figsize=(18, 10))
+
+# OS별 평균 RAM
+sns.barplot(x='os_group', y='avg_ram', data=os_summary, ax=axes[0, 0], palette='Blues')
+axes[0, 0].set_title('OS별 평균 RAM (GB)', fontproperties=font_prop)
+axes[0, 0].set_ylabel('RAM (GB)', fontproperties=font_prop)
+
+# OS별 평균 저장공간
+sns.barplot(x='os_group', y='avg_storage', data=os_summary, ax=axes[0, 1], palette='Greens')
+axes[0, 1].set_title('OS별 평균 저장공간 (GB)', fontproperties=font_prop)
+axes[0, 1].set_ylabel('저장공간 (GB)', fontproperties=font_prop)
+
+# OS별 OS 개수
+sns.barplot(x='os_group', y='count', data=os_summary, ax=axes[0, 2], palette='Reds')
+axes[0, 2].set_title('OS별 개수', fontproperties=font_prop)
+axes[0, 2].set_ylabel('개수', fontproperties=font_prop)
+
+# OS별 가격의 표준편차
+sns.barplot(x='os_group', y='price_std', data=os_summary, ax=axes[1, 0], palette='Purples')
+axes[1, 0].set_title('OS별 가격 표준편차 (USD)', fontproperties=font_prop)
+axes[1, 0].set_ylabel('가격 표준편차 (USD)', fontproperties=font_prop)
+
+# OS별 평균 가격
+sns.barplot(x='os_group', y='avg_price', data=os_summary, ax=axes[1, 1], palette='Oranges')
+axes[1, 1].set_title('OS별 평균 가격 (USD)', fontproperties=font_prop)
+axes[1, 1].set_ylabel('평균 가격 (USD)', fontproperties=font_prop)
+
+# OS별 평균 CPU 속도
+sns.barplot(x='os_group', y='avg_cpu', data=os_summary, ax=axes[1, 2], palette='coolwarm')
+axes[1, 2].set_title('OS별 평균 CPU 속도 (GHz)', fontproperties=font_prop)
+axes[1, 2].set_ylabel('CPU 속도 (GHz)', fontproperties=font_prop)
+
+plt.tight_layout()
+plt.show()
+
