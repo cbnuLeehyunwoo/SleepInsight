@@ -1,12 +1,10 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import font_manager, rc
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-import seaborn as sns
+from matplotlib import font_manager, rc
 import re
 
 # 한글 폰트 설정
@@ -50,19 +48,13 @@ y = subset['price_usd']
 # 데이터 분할
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# 다항 회귀 피처 생성
-degree = 2  # 다항 차수
-poly = PolynomialFeatures(degree)
-X_train_poly = poly.fit_transform(X_train)
-X_test_poly = poly.transform(X_test)
-
 # 모델 학습
 model = LinearRegression()
-model.fit(X_train_poly, y_train)
+model.fit(X_train, y_train)
 
-# 예측 및 평가
-y_pred_train = model.predict(X_train_poly)
-y_pred_test = model.predict(X_test_poly)
+# 예측
+y_pred_train = model.predict(X_train)
+y_pred_test = model.predict(X_test)
 
 # 평가 지표 계산
 train_mse = mean_squared_error(y_train, y_pred_train)
@@ -74,16 +66,14 @@ test_mae = mean_absolute_error(y_test, y_pred_test)
 train_r2 = r2_score(y_train, y_pred_train)
 test_r2 = r2_score(y_test, y_pred_test)
 
-# 평가 결과 출력
-print("훈련 데이터 평가:")
-print(f"MSE: {train_mse:.2f}, RMSE: {train_rmse:.2f}, MAE: {train_mae:.2f}, R²: {train_r2:.2f}")
-print("\n테스트 데이터 평가:")
-print(f"MSE: {test_mse:.2f}, RMSE: {test_rmse:.2f}, MAE: {test_mae:.2f}, R²: {test_r2:.2f}")
+# 결과 출력
+print(f"훈련 데이터 MSE: {train_mse:.2f}, RMSE: {train_rmse:.2f}, MAE: {train_mae:.2f}, R²: {train_r2:.2f}")
+print(f"테스트 데이터 MSE: {test_mse:.2f}, RMSE: {test_rmse:.2f}, MAE: {test_mae:.2f}, R²: {test_r2:.2f}")
 
 # 예측 결과 시각화
 plt.figure(figsize=(10, 6))
 plt.scatter(y_test, y_pred_test, alpha=0.7, label='예측 값 vs 실제 값')
-plt.plot([y.min(), y.max()], [y.min(), y.max()], color='red', linestyle='--')
+plt.plot([y.min(), y.max()], [y.min(), y.max()], color='red', linestyle='--', label='이상적')
 plt.title('실제 가격 vs 예측 가격')
 plt.xlabel('실제 가격 (USD)')
 plt.ylabel('예측 가격 (USD)')
