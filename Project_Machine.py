@@ -5,7 +5,7 @@ from matplotlib import font_manager, rc
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import seaborn as sns
 import re
 
@@ -64,18 +64,26 @@ model.fit(X_train_poly, y_train)
 y_pred_train = model.predict(X_train_poly)
 y_pred_test = model.predict(X_test_poly)
 
-train_rmse = np.sqrt(mean_squared_error(y_train, y_pred_train))
-test_rmse = np.sqrt(mean_squared_error(y_test, y_pred_test))
+# 평가 지표 계산
+train_mse = mean_squared_error(y_train, y_pred_train)
+test_mse = mean_squared_error(y_test, y_pred_test)
+train_rmse = np.sqrt(train_mse)
+test_rmse = np.sqrt(test_mse)
+train_mae = mean_absolute_error(y_train, y_pred_train)
+test_mae = mean_absolute_error(y_test, y_pred_test)
 train_r2 = r2_score(y_train, y_pred_train)
 test_r2 = r2_score(y_test, y_pred_test)
 
-print(f"훈련 데이터 RMSE: {train_rmse:.2f}, R²: {train_r2:.2f}")
-print(f"테스트 데이터 RMSE: {test_rmse:.2f}, R²: {test_r2:.2f}")
+# 평가 결과 출력
+print("훈련 데이터 평가:")
+print(f"MSE: {train_mse:.2f}, RMSE: {train_rmse:.2f}, MAE: {train_mae:.2f}, R²: {train_r2:.2f}")
+print("\n테스트 데이터 평가:")
+print(f"MSE: {test_mse:.2f}, RMSE: {test_rmse:.2f}, MAE: {test_mae:.2f}, R²: {test_r2:.2f}")
 
 # 예측 결과 시각화
 plt.figure(figsize=(10, 6))
 plt.scatter(y_test, y_pred_test, alpha=0.7, label='예측 값 vs 실제 값')
-plt.plot([y.min(), y.max()], [y.min(), y.max()], color='red', linestyle='--', label='이상적')
+plt.plot([y.min(), y.max()], [y.min(), y.max()], color='red', linestyle='--')
 plt.title('실제 가격 vs 예측 가격')
 plt.xlabel('실제 가격 (USD)')
 plt.ylabel('예측 가격 (USD)')
