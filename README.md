@@ -18,22 +18,22 @@ https://www.kaggle.com/datasets/jakubkhalponiak/phones-2024
 
 ## 데이터 분석
 가격과 변수들 간의 관계를 회귀선을 포함한 산점도로 표현
-1. 가격과 CPU 성능과의 관계
+1. 가격과 CPU 성능과의 관계          
 ![image](https://github.com/user-attachments/assets/17036c2a-92c9-4db2-b23d-50503d51fa48)
 
-2. 가격과 배터리 간의 관계
+2. 가격과 배터리 간의 관계        
 ![image](https://github.com/user-attachments/assets/77ae90d5-b3ca-48cf-823f-73ce3195422c)
 
 3. 가격과 스마트폰 무게와의 관계
 ![image](https://github.com/user-attachments/assets/7112ef9a-be5f-4af4-b937-e1006fd493ed)
 
-5. 가격과 화면 크기와의 관계
+5. 가격과 화면 크기와의 관계        
 ![image](https://github.com/user-attachments/assets/6c03049e-21c7-4243-909c-9bc47a3a59ac)
 
-6. 가격과 램의 관계
+6. 가격과 램의 관계          
 ![image](https://github.com/user-attachments/assets/c7f091a6-55b2-4d2b-9539-4c2e32e71165)
 
-7. 가격과 저장공간의 관계
+7. 가격과 저장공간의 관계         
 ![image](https://github.com/user-attachments/assets/92860a3b-dd51-4051-9edf-e132bf5f3a73)
 
 OS 별로 그룹화하여 각 컬럼의 평균을 막대그래프로 표현
