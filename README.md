@@ -36,6 +36,23 @@ https://www.kaggle.com/datasets/jakubkhalponiak/phones-2024
 6. 가격과 저장공간의 관계
 ![image](https://github.com/user-attachments/assets/92860a3b-dd51-4051-9edf-e132bf5f3a73)
 
+OS 별로 그룹화하여 각 컬럼의 평균을 막대그래프로 표현
+iOS, Android, Others
+iOS, Android 외의 OS는 표본이 너무 적기 때문에Others 그룹으로 그룹화(Harmony OS, EMUI) 
+1. OS별 개수
+![image](https://github.com/user-attachments/assets/f1d3af33-f819-49af-b2d4-183f3101fab9)
 
+2. OS별 평균 램
+![image](https://github.com/user-attachments/assets/5a77285d-e7fc-47f4-a53a-f224697c9a5d)
 
+3. OS별 평균 OS
+![image](https://github.com/user-attachments/assets/72d1ae18-c6d6-4f2d-b95b-d0463b7857f3)
 
+4. OS별 평균 CPU 속도
+![image](https://github.com/user-attachments/assets/36fdd559-85e9-4b3e-829c-90a3c9c12028)
+
+5. OS별 평균 가격
+![image](https://github.com/user-attachments/assets/2f444f91-20b6-4237-99da-e13472e71dca)
+
+6. OS별 가격 표준편차
+![image](https://github.com/user-attachments/assets/95dca55b-874a-4308-b90c-d2e31f6ae72d)
