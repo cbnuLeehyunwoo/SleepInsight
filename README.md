@@ -27,13 +27,13 @@ https://www.kaggle.com/datasets/jakubkhalponiak/phones-2024
 3. 가격과 스마트폰 무게와의 관계
 ![image](https://github.com/user-attachments/assets/7112ef9a-be5f-4af4-b937-e1006fd493ed)
 
-4. 가격과 화면 크기와의 관계
+5. 가격과 화면 크기와의 관계
 ![image](https://github.com/user-attachments/assets/6c03049e-21c7-4243-909c-9bc47a3a59ac)
 
-5. 가격과 램의 관계
+6. 가격과 램의 관계
 ![image](https://github.com/user-attachments/assets/c7f091a6-55b2-4d2b-9539-4c2e32e71165)
 
-6. 가격과 저장공간의 관계
+7. 가격과 저장공간의 관계
 ![image](https://github.com/user-attachments/assets/92860a3b-dd51-4051-9edf-e132bf5f3a73)
 
 OS 별로 그룹화하여 각 컬럼의 평균을 막대그래프로 표현
@@ -56,3 +56,24 @@ iOS, Android 외의 OS는 표본이 너무 적기 때문에Others 그룹으로 �
 
 6. OS별 가격 표준편차
 ![image](https://github.com/user-attachments/assets/95dca55b-874a-4308-b90c-d2e31f6ae72d)
+
+## 머신러닝
+종속변수: ram, storage, battery, weight, cpu_speed, display_size
+독립변수: price_usd
+단항회귀 그래프 및 성능평가
+![image](https://github.com/user-attachments/assets/3f347286-1922-4429-8c51-cc786a1cf766)
+![image](https://github.com/user-attachments/assets/591c61ca-117d-46ca-aeac-ceae4e0dad88)
+
+다항회귀 그래프(2차) 및 성능평가
+![image](https://github.com/user-attachments/assets/7f314db9-7753-4d8b-8ea2-0d1f3141a14b)
+![image](https://github.com/user-attachments/assets/119c48d8-826a-4b9c-976c-0f0c98c796d6)
+
+다항회귀의 성능이 더 우수한 것을 알 수 있으며 Project_Machine.py 파일에는 현재 다항회귀가 구현되어있음
+
+##응용 방향 설계
+어플리케이션 Smartphone-insight 설계 제안
+본 애플리케이션은 출시된 스마트폰의 정보를 기반으로 다음과 같은 기능을 수행한다
+1. 스마트폰 스펙을 입력하면 해당 조건에 맞는 스마트폰 추천
+2. 스펙과 가격을 입력하면 해당 가격의 합리성 여부 분석, 합리적이지 않다면 합리적인 제품들 추천
+3. 향후 출시될 스마트폰의 가격 예측
+
