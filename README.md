@@ -39,35 +39,35 @@ https://www.kaggle.com/datasets/jakubkhalponiak/phones-2024
 OS 별로 그룹화하여 각 컬럼의 평균을 막대그래프로 표현
 iOS, Android, Others
 iOS, Android 외의 OS는 표본이 너무 적기 때문에Others 그룹으로 그룹화(Harmony OS, EMUI) 
-1. OS별 개수
+1. OS별 개수           
 ![image](https://github.com/user-attachments/assets/f1d3af33-f819-49af-b2d4-183f3101fab9)
 
-2. OS별 평균 램
+2. OS별 평균 램              
 ![image](https://github.com/user-attachments/assets/5a77285d-e7fc-47f4-a53a-f224697c9a5d)
 
-3. OS별 평균 OS
+3. OS별 평균 OS            
 ![image](https://github.com/user-attachments/assets/72d1ae18-c6d6-4f2d-b95b-d0463b7857f3)
 
-4. OS별 평균 CPU 속도
+4. OS별 평균 CPU 속도          
 ![image](https://github.com/user-attachments/assets/36fdd559-85e9-4b3e-829c-90a3c9c12028)
 
-5. OS별 평균 가격
+5. OS별 평균 가격           
 ![image](https://github.com/user-attachments/assets/2f444f91-20b6-4237-99da-e13472e71dca)
 
-6. OS별 가격 표준편차
+6. OS별 가격 표준편차         
 ![image](https://github.com/user-attachments/assets/95dca55b-874a-4308-b90c-d2e31f6ae72d)
 
-## 머신러닝
-종속변수: ram, storage, battery, weight, cpu_speed, display_size
-독립변수: price_usd
-단항회귀 그래프 및 성능평가
+## 머신러닝          
+종속변수: ram, storage, battery, weight, cpu_speed, display_size       
+독립변수: price_usd        
+단항회귀 그래프 및 성능평가     
 ![image](https://github.com/user-attachments/assets/3f347286-1922-4429-8c51-cc786a1cf766)
 ![image](https://github.com/user-attachments/assets/591c61ca-117d-46ca-aeac-ceae4e0dad88)
 
-다항회귀 그래프(2차) 및 성능평가
+다항회귀 그래프(2차) 및 성능평가         
 ![image](https://github.com/user-attachments/assets/7f314db9-7753-4d8b-8ea2-0d1f3141a14b)
 ![image](https://github.com/user-attachments/assets/119c48d8-826a-4b9c-976c-0f0c98c796d6)
-
+     
 다항회귀의 성능이 더 우수한 것을 알 수 있으며 Project_Machine.py 파일에는 현재 다항회귀가 구현되어있음
 
 ##응용 방향 설계
